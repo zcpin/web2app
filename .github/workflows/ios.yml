@@ -50,7 +50,7 @@ jobs:
           cd ios/App
 
           xcodebuild \
-            -workspace App.xcworkspace \
+            -project App.xcodeproj \
             -scheme App \
             -configuration Release \
             -archivePath build/App.xcarchive \
