@@ -1,0 +1,8 @@
+{
+  "appId": "com.zenovahk.space",
+  "appName": "web2app",
+  "server": {
+    "url": "https://m.zenovahk.space",
+    "cleartext": true
+  }
+}
