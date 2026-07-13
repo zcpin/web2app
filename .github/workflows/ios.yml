@@ -54,4 +54,5 @@ jobs:
             -scheme App \
             -configuration Release \
             -archivePath build/App.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
             archive
