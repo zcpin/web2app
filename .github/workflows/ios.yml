@@ -5,31 +5,53 @@ on:
 
 jobs:
   build:
-
     runs-on: macos-latest
 
     steps:
 
+      # 拉取代码
       - name: Checkout
         uses: actions/checkout@v5
 
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-
+      # 安装 Node
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
           node-version: 22
-          cache: pnpm
+          cache: npm
 
 
-      - name: Install
-        run: pnpm install
+      # 安装依赖
+      - name: Install dependencies
+        run: npm install
 
 
-      - name: Capacitor sync
-        run: pnpm exec cap sync ios
+      # 检查 Capacitor 环境
+      - name: Capacitor doctor
+        run: npx cap doctor
+
+
+      # 同步 iOS 工程
+      - name: Capacitor sync ios
+        run: npx cap sync ios
+
+
+      # 查看 iOS 工程结构
+      - name: Check iOS project
+        run: |
+          ls -la ios
+          ls -la ios/App
+
+
+      # 编译 iOS Archive
+      - name: Build iOS Archive
+        run: |
+          cd ios/App
+
+          xcodebuild \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -archivePath build/App.xcarchive \
+            archive
